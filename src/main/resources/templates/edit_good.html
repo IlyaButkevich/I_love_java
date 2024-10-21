@@ -11,7 +11,11 @@
             <table>
                 <tr>
                     <td>Название:</td>
-                    <td><input type="text" th:field="*{goodname}"></td>
+                    <td>
+                        <input type="text" th:field="*{goodname}">
+                        <input type="hidden" th:field="*{id}">
+
+                    </td>
                 </tr>
                 <tr>
                     <td>Содержимое:</td>
