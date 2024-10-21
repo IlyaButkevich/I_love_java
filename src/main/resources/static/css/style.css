@@ -57,15 +57,6 @@ h1 {
     color: #fff;
 }
 
-.inputbox ion-icon {
-    position: absolute;
-    right: 8px;
-    color: #fff;
-    font-size: 1.2rem;
-    top: 12px;
-    transition: all 0.5s ease-in-out;
-}
-
 
 .inputbox label {
     position: absolute;
