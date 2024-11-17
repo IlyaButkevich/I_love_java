@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,9 @@ public class AppController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private BlogService blogService;
 
     @RequestMapping("/")
     public String index(Model model, @Param("keyword") String keyword) {
@@ -148,4 +153,57 @@ public class AppController {
         return "login";
     }
 
+    @RequestMapping("autoblog")
+    public String toBlog(){
+        return "blog";
+    }
+
+    @RequestMapping("main_blog")
+    public String tomainblog(Model model){
+        List<Blog> blogList = blogService.ListAll(null);
+        model.addAttribute("blogList", blogList);
+
+
+
+        return "mainblog";
+    }
+
+    @RequestMapping("admin_blog")
+    public String toadminblog(Model model){
+        List<Blog> blogList = blogService.ListAll(null);
+        model.addAttribute("blogList", blogList);
+
+        return "adminblog";
+    }
+
+    @RequestMapping(value="/saveblog", method = RequestMethod.POST)
+    public String saveBlog(@ModelAttribute("blog") Blog blog){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        blog.setUser(auth.getName());
+        blog.setDate(new Date());
+
+        blogService.save(blog);
+        return "redirect:/admin_blog";
+    }
+
+    @RequestMapping("/addblog")
+    public String newBlog(Model model){
+        Blog blog = new Blog();
+        model.addAttribute("blog", blog);
+        return "addblog";
+    }
+
+    @PostMapping("/deleteblog/{id}")
+    public String deleteblog(@PathVariable Long id){
+        blogService.delete(id);
+        return "redirect:/admin_blog";
+    }
+
+    @RequestMapping("/editblog/{id}")
+    public ModelAndView editBlog(@PathVariable(name="id") Long id){
+        ModelAndView mav = new ModelAndView("edit_blog");
+        Blog blog = blogService.get(id);
+        mav.addObject("blog", blog);
+        return mav;
+    }
 }

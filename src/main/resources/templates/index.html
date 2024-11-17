@@ -136,7 +136,7 @@
 
 
     <div class="row">
-        <div class="col-md-8 offset-md-1">
+        <div class="col-md-9 offset-md-1">
             <h4>Поиск груза по любому критерию:</h4>
             <form th:action="@{/}">
                 <input type="text" name="keyword" id="keyword" size="30" th:value="${keyword}" required />
@@ -146,6 +146,7 @@
                 <div class="float-end" >
                     <a th:href="@{'/getgraph'}"><button type="button" class="btn btn-outline-primary">Статистика</button></a>
                     <a href="/new"><button type="button" class="btn btn-outline-primary" data-togge="button" aria-pressed="false" th:autocomplete="off" sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')">Добавить груз</button></a>
+                    <a th:href="@{'/autoblog'}"><button type="button" class="btn btn-outline-primary">Автоблог</button></a>
                 </div>
             </form>
         </div>
@@ -216,6 +217,7 @@
         window.location = "[[@{/}]]";
     }
 </script>
+
 
 </body>
 
