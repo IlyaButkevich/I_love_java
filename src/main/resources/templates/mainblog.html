@@ -114,6 +114,24 @@
 </head>
 <body>
 
+<form th:action="@{/main_blog}" method="get" class="d-flex mb-3">
+    <!-- Dropdown for Search Options -->
+    <select name="filter" class="form-select me-2">
+        <option value="all">All</option>
+        <option value="name">Name</option>
+        <option value="date">Date</option>
+        <option value="datename">Name and Date</option>
+        <option value="text">Text</option>
+        <option value="datetext">Text and Date</option>
+    </select>
+
+    <!-- Search Input -->
+    <input type="text" name="keyword" class="form-control me-2" placeholder="Search..." />
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
 <header class="delivery-header">
     <h1>Автоблог</h1>
 </header>

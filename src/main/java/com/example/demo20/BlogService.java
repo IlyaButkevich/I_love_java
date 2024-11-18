@@ -16,6 +16,27 @@ public class BlogService {
         }
         return repo.findAll();
     }
+
+    public List<Blog> searchByName(String keyword) {
+        return repo.searchBlogname(keyword);
+    }
+
+    public List<Blog> searchByDate(String keyword) {
+        return repo.searchBlogdate(keyword);
+    }
+
+    public List<Blog> searchByDateAndName(String keyword) {
+        return repo.searchBlogdatename(keyword);
+    }
+
+    public List<Blog> searchByText(String keyword) {
+        return repo.searchBlogtext(keyword);
+    }
+
+    public List<Blog> searchByDateAndText(String keyword) {
+        return repo.searchBlogdatetext(keyword);
+    }
+
     public void save(Blog blog) {
         repo.save(blog);
     }

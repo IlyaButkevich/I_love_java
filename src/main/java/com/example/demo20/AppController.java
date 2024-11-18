@@ -142,12 +142,35 @@ public class AppController {
     }
 
     @RequestMapping("main_blog")
-    public String tomainblog(Model model){
-        List<Blog> blogList = blogService.ListAll(null);
+    public String tomainblog(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "filter", required = false, defaultValue = "all") String filter,
+            Model model
+    ) {
+        List<Blog> blogList;
+
+        switch (filter) {
+            case "name":
+                blogList = blogService.searchByName(keyword);
+                break;
+            case "date":
+                blogList = blogService.searchByDate(keyword);
+                break;
+            case "datename":
+                blogList = blogService.searchByDateAndName(keyword);
+                break;
+            case "text":
+                blogList = blogService.searchByText(keyword);
+                break;
+            case "datetext":
+                blogList = blogService.searchByDateAndText(keyword);
+                break;
+            default:
+                blogList = blogService.ListAll(keyword);
+                break;
+        }
+
         model.addAttribute("blogList", blogList);
-
-
-
         return "mainblog";
     }
 
