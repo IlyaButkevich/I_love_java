@@ -56,26 +56,8 @@ public class AppController {
         return "index";
     }
 
-    @RequestMapping("/new")
-    public String newGoods(Model model){
-        Goods goods = new Goods();
-        model.addAttribute("goods", goods);
-        return "new";
-    }
 
-    @RequestMapping(value="/save", method = RequestMethod.POST)
-    public String saveGoods(@ModelAttribute("goods") Goods goods){
-        goodsService.save(goods);
-        return "redirect:/";
-    }
 
-    @RequestMapping("/edit/{id}")
-    public ModelAndView editGoods(@PathVariable(name="id") Long id){
-        ModelAndView mav = new ModelAndView("edit_good");
-        Goods goods = goodsService.get(id);
-        mav.addObject("goods", goods);
-        return mav;
-    }
 
     @PostMapping("/delete/{id}")
     public String deleteGoods(@PathVariable Long id){

@@ -145,7 +145,7 @@
 
                 <div class="float-end" >
                     <a th:href="@{'/getgraph'}"><button type="button" class="btn btn-outline-primary">Статистика</button></a>
-                    <a href="/new"><button type="button" class="btn btn-outline-primary" data-togge="button" aria-pressed="false" th:autocomplete="off" sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')">Добавить груз</button></a>
+                    <button type="button" sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')" onclick="openMe1()" class="btn btn-outline-primary">Добавить груз</button>
                     <a th:href="@{'/autoblog'}"><button type="button" class="btn btn-outline-primary">Автоблог</button></a>
                 </div>
             </form>
@@ -207,7 +207,7 @@
                             </tr>
                             <tr>
                                 <td>Содержимое:</td>
-                                <td><input type="text" name="content"></td>
+                                <td><input type="text" name="contents"></td>
                             </tr>
                             <tr>
                                 <td>Город отправления:</td>
@@ -250,7 +250,7 @@
                                 document.querySelector("input[name='id']").value = goods.id;
                                 document.querySelector("input[name='goodname']").value = goods.goodname;
                                 document.querySelector("input[name='dateofshipment']").value = goods.dateofshipment ? goods.dateofshipment.substring(0, 10) : "";
-                                document.querySelector("input[name='content']").value = goods.content;
+                                document.querySelector("input[name='contents']").value = goods.contents;
                                 document.querySelector("input[name='dateofarrival']").value = goods.dateofarrival ? goods.dateofarrival.substring(0, 10) : "";
                                 document.querySelector("input[name='shipmentcity']").value = goods.shipmentcity;
                                 document.querySelector("input[name='arrivalcity']").value = goods.arrivalcity;
@@ -267,13 +267,15 @@
                         req.open("GET", "/new1", true);
                         req.onload = function() {
                             if (req.status === 200) {
-                                var car = JSON.parse(req.responseText);
+                                var goods = JSON.parse(req.responseText);
 
-                                document.querySelector("input[name='id']").value = car.id;
-                                document.querySelector("input[name='brand']").value = car.brand;
-                                document.querySelector("input[name='year']").value = car.year;
-                                document.querySelector("input[name='date_auto']").value = car.date_auto ? car.date_auto.substring(0, 10) : "";
-                                document.querySelector("input[name='fullname']").value = car.fullname;
+                                document.querySelector("input[name='id']").value = goods.id;
+                                document.querySelector("input[name='goodname']").value = goods.goodname;
+                                document.querySelector("input[name='dateofshipment']").value = goods.dateofshipment ? goods.dateofshipment.substring(0, 10) : "";
+                                document.querySelector("input[name='contents']").value = goods.contents;
+                                document.querySelector("input[name='dateofarrival']").value = goods.dateofarrival ? goods.dateofarrival.substring(0, 10) : "";
+                                document.querySelector("input[name='shipmentcity']").value = goods.shipmentcity;
+                                document.querySelector("input[name='arrivalcity']").value = goods.arrivalcity;
 
                                 document.getElementById('carDialog').showModal();
                             }
