@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -205,5 +206,27 @@ public class AppController {
         Blog blog = blogService.get(id);
         mav.addObject("blog", blog);
         return mav;
+    }
+
+
+    @GetMapping("/edit1/{id}")
+    @ResponseBody
+    public ResponseEntity<Goods> callOpen(@PathVariable(name = "id") Long id) {
+        Goods goods = goodsService.get(id);
+        return ResponseEntity.ok(goods);
+    }
+
+    @GetMapping("/new1")
+    @ResponseBody
+    public ResponseEntity<Goods> callOpen1() {
+        Goods goods = new Goods();
+        goodsService.save(goods);
+        return ResponseEntity.ok(goods);
+    }
+
+    @RequestMapping(value = "/save1", method = RequestMethod.POST)
+    public String saveFirmware(@ModelAttribute("goods") Goods goods) {
+        goodsService.save(goods);
+        return "redirect:/";
     }
 }

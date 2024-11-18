@@ -182,7 +182,8 @@
             <th scope="row" class="text-black-50" th:text="${goods.arrivalcity}">Город прибытия груза отсутствует</th>
             <th scope="row" class="text-black-50" th:text="${goods.dateofarrival.toString().substring(0,10)}"></th>
             <td sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')">
-                <a th:href="@{'/edit/'+${goods.id}}"><button type="button" class="btn btn-outline-primary">Редактировать</button></a>
+
+                <button type="button"  th:data-id="${goods.id}" onclick="openMe(this.getAttribute('data-id'))" class="btn btn-outline-primary">Редактировать</button>
 
                 <form th:action="@{'/delete/'+${goods.id}}" method="post" onsubmit="return confirmDelete()">
                     <button type="submit" class="btn btn-outline-primary">Удалить</button>
@@ -193,6 +194,101 @@
                     }
                 </script>
             </td>
+
+            <th>
+                <dialog id="carDialog">
+                    <form action="#" th:action="@{'/save1'}" method="post">
+                        <table>
+                            <tr>
+                                <td>Название:</td>
+                                <td><input type="text" name = "goodname">
+                                    <input type="hidden" name = "id">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Содержимое:</td>
+                                <td><input type="text" name="content"></td>
+                            </tr>
+                            <tr>
+                                <td>Город отправления:</td>
+                                <td><input type="text" name="shipmentcity"></td>
+                            </tr>
+                            <tr>
+                                <td>Дата отправления:</td>
+                                <td><input type="date" name="dateofshipment" required></td>
+                            </tr>
+                            <tr>
+                                <td>Город прибытия:</td>
+                                <td><input type="text" name="arrivalcity"></td>
+                            </tr>
+                            <tr>
+                                <td>Дата прибытия:</td>
+                                <td><input type="date" name="dateofarrival" required></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false"
+                                            autocomplete="off">Сохранить
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" onclick="closeDialog()">Закрыть</button>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </form>
+                </dialog>
+
+                <script>
+                    function openMe(id) {
+                        var req = new XMLHttpRequest();
+                        req.open("GET", "/edit1/" + id, true);
+                        req.onload = function() {
+                            if (req.status === 200) {
+                                var goods = JSON.parse(req.responseText);
+
+                                document.querySelector("input[name='id']").value = goods.id;
+                                document.querySelector("input[name='goodname']").value = goods.goodname;
+                                document.querySelector("input[name='dateofshipment']").value = goods.dateofshipment ? goods.dateofshipment.substring(0, 10) : "";
+                                document.querySelector("input[name='content']").value = goods.content;
+                                document.querySelector("input[name='dateofarrival']").value = goods.dateofarrival ? goods.dateofarrival.substring(0, 10) : "";
+                                document.querySelector("input[name='shipmentcity']").value = goods.shipmentcity;
+                                document.querySelector("input[name='arrivalcity']").value = goods.arrivalcity;
+
+                                document.getElementById('carDialog').showModal();
+                            }
+                        };
+                        req.send();
+                    }
+
+
+                    function openMe1() {
+                        var req = new XMLHttpRequest();
+                        req.open("GET", "/new1", true);
+                        req.onload = function() {
+                            if (req.status === 200) {
+                                var car = JSON.parse(req.responseText);
+
+                                document.querySelector("input[name='id']").value = car.id;
+                                document.querySelector("input[name='brand']").value = car.brand;
+                                document.querySelector("input[name='year']").value = car.year;
+                                document.querySelector("input[name='date_auto']").value = car.date_auto ? car.date_auto.substring(0, 10) : "";
+                                document.querySelector("input[name='fullname']").value = car.fullname;
+
+                                document.getElementById('carDialog').showModal();
+                            }
+                        };
+                        req.send();
+                    }
+
+                    function closeDialog() {
+                        document.getElementById('carDialog').close();
+                    }
+                </script>
+            </th>
+
+
+
         </tr>
         </tbody>
     </table>
@@ -203,7 +299,7 @@
                 let table = document.getElementById('1')
                 let tBody = table.querySelector('tbody')
                 const count = tBody.querySelectorAll('tr').length;
-                document.write('Количество грузов в таблице: ' + count)
+                document.write('Количество грузов в таблице: ' + count/8)
             }
 
             getRowsColumn()
