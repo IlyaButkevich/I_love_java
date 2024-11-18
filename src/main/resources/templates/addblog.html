@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<meta charset="UTF-8">
+<title>Добавление груза</title>
+<head th:replace="index :: head"></head>
+<body>
+<blockquote class="blockquote text-center"><h1>Добавление груза</h1></blockquote>
+<div class="row">
+    <div class="col-md-8 offset-md-4">
+        <form action="#" th:action="@{/saveblog}" th:object="${blog}" method="post">
+            <table>
+                <tr>
+                    <td>Название поста:</td>
+                    <td><input type="text" th:field="*{name}"></td>
+                </tr>
+                <tr>
+                    <td>Текст поста:</td>
+                    <td><textarea class="form-control" th:field="*{text}" rows="3"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false"
+                                autocomplete="off">Сохранить
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>
