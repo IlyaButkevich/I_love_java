@@ -1,9 +1,9 @@
 package com.example.demo20;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +22,18 @@ public class MyAppUserService implements UserDetailsService{
 
     @Autowired
     private MyAppUserRepository repository;
+
+
+    public Myappuser get(Long id) {
+        return repository.findById(id).get();
+    }
+
+    public void save(Myappuser myappuser) {
+        repository.save(myappuser);
+    }
+    public List<Myappuser> findAll() {
+        return repository.findAll();
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

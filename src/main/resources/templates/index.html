@@ -147,6 +147,7 @@
                     <a th:href="@{'/getgraph'}"><button type="button" class="btn btn-outline-primary">Статистика</button></a>
                     <button type="button" sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')" onclick="openMe1()" class="btn btn-outline-primary">Добавить груз</button>
                     <a th:href="@{'/autoblog'}"><button type="button" class="btn btn-outline-primary">Автоблог</button></a>
+                    <a sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')" th:href="@{'/toadminpanel'}"><button type="button" class="btn btn-outline-primary">Админка</button></a>
                 </div>
             </form>
         </div>

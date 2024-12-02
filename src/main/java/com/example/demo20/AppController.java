@@ -24,6 +24,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AppController {
 
     @Autowired
+    private MyAppUserService myAppUserService;
+
+    @Autowired
     private GoodsService goodsService;
 
     @Autowired
@@ -201,6 +204,7 @@ public class AppController {
 
     @PostMapping("/deleteblog/{id}")
     public String deleteblog(@PathVariable Long id){
+         
         blogService.delete(id);
         return "redirect:/admin_blog";
     }
@@ -233,5 +237,23 @@ public class AppController {
     public String saveFirmware(@ModelAttribute("goods") Goods goods) {
         goodsService.save(goods);
         return "redirect:/";
+    }
+
+
+    @RequestMapping("toadminpanel")
+    public String toadminpanel(Model model){
+        List<Myappuser> myappuserList = myAppUserService.findAll();
+        model.addAttribute("myappuserList", myappuserList);
+        return "adminpanel";
+    }
+
+    @PostMapping("/updateRole/{id}")
+    public String updateRole(@PathVariable Long id, @RequestParam("role") String role) {
+        Myappuser user = myAppUserService.get(id);
+        if (user != null) {
+            user.setRole(role);
+            myAppUserService.save(user); // Update the user in the database
+        }
+        return "redirect:/toadminpanel"; // Redirect back to the admin panel
     }
 }
