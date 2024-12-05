@@ -134,8 +134,8 @@
         <td>
             <form th:action="@{'/updateRole/' + ${list.id}}" method="post">
                 <select name="role">
-                    <option value="admin" th:selected="${list.role == 'admin'}">Admin</option>
-                    <option value="user" th:selected="${list.role == 'user'}">User</option>
+                    <option value="ADMIN" th:selected="${list.role == 'ADMIN'}">Admin</option>
+                    <option value="USER" th:selected="${list.role == 'USER'}">User</option>
                 </select>
                 <button type="submit" class="btn btn-primary btn-sm">Update</button>
             </form>
