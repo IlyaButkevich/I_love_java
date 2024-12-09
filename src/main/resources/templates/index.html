@@ -103,18 +103,49 @@
             padding: 40px 0;
             background-color: #e9ecef;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(80, 97, 129, 0.1);
         }
 
         /* Animation */
         button, input[type="submit"] {
             transition: all 0.3s ease;
         }
+        footer {
+            background-color: #343a40;
+            color: #fff;
+        }
+        footer h5 {
+            font-weight: bold;
+        }
+        footer a {
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .social-buttons a {
+            transition: transform 0.2s;
+        }
+        .social-buttons a:hover {
+            transform: scale(1.1);
+        }
     </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                includedLanguages: 'en,fr,de,ru', // Укажите необходимые языки через запятую
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
 <div class="container">
+    <div id="google_translate_element" style="text-align: right; margin: 10px;"></div>
+
     <div class="delivery-header">
         <blockquote class="blockquote text-center">
             <h1>Информационная система перевозки грузов</h1>
@@ -317,7 +348,35 @@
     }
 </script>
 
+<footer class="bg-dark text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>О нас</h5>
+                <p>Буткевич Илья, Ермолаева Диана, Краснощёкова Ксения.</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Контакты</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Телефон:</strong> +7 *** *** ** **</li>
+                    <li><strong>Email:</strong> contact@website.com</li>
+                    <li><strong>Адрес:</strong> Улица Прикольная, 123, Москва, Россия</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Следите за нами</h5>
+                <div class="social-buttons">
+                    <a href="#" class="btn btn-outline-light btn-sm me-2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/VK_Compact_Logo.svg/1200px-VK_Compact_Logo.svg.png" alt="VK" width="30" height="30"></a>
+                    <a href="#" class="btn btn-outline-light btn-sm me-2"><img src="https://s3-minsk.cloud.mts.by/datastorage/luzhok/library/1645006107_3-fikiwiki-com-p-kartinki-feisbuk-4.png" alt="Facebook" width="30" height="30"></a>
+                    <a href="#" class="btn btn-outline-light btn-sm"><img src="https://www.fs.usda.gov/Internet/FSE_MEDIA/fseprd973427.png" alt="Twitter" width="30" height="30"></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <p>&copy; 2024 Все права защищены | <a href="#" class="text-white">Политика конфиденциальности</a></p>
+        </div>
+    </div>
+</footer>
 
 </body>
-
 </html>

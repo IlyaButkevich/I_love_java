@@ -48,4 +48,10 @@ public class BlogService {
     public void delete(Long id) {
         repo.deleteById(id);
     }
+
+    public Blog getBlogById(Long id) {
+        return repo.findById(id).orElseThrow(() ->
+                new RuntimeException("Post not found with id: " + id)
+        );
+    }
 }

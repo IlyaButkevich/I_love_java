@@ -4,11 +4,15 @@
 <title>Редактирование груза</title>
 <head th:replace="index :: head"></head>
 <body>
-<blockquote class="blockquote text-center"><h1>Редактирование груза</h1></blockquote>
+<blockquote class="blockquote text-center"><h1>Редактирование поста</h1></blockquote>
 <div class="row">
     <div class="col-md-8 offset-md-4">
-        <form action="#" th:action="@{/saveblog}" th:object="${blog}" method="post">
+        <form action="#" th:action="@{'/saveblog/'+${blog.id}}" th:object="${blog}" method="post" enctype="multipart/form-data">
             <table>
+                <tr>
+                    <td>Изображение:</td>
+                    <td><input type="file" name="file" required="required"></td>
+                </tr>
                 <tr>
                     <td>Название:</td>
                     <td>

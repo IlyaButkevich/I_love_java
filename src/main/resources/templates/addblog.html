@@ -7,8 +7,12 @@
 <blockquote class="blockquote text-center"><h1>Добавление груза</h1></blockquote>
 <div class="row">
     <div class="col-md-8 offset-md-4">
-        <form action="#" th:action="@{/saveblog}" th:object="${blog}" method="post">
+        <form action="#" th:action="@{/saveblog}" th:object="${blog}" method="post" enctype="multipart/form-data">
             <table>
+                <tr>
+                    <td>Изображение:</td>
+                    <td><input type="file" name="file"></td>
+                </tr>
                 <tr>
                     <td>Название поста:</td>
                     <td><input type="text" th:field="*{name}"></td>

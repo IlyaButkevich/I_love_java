@@ -111,18 +111,28 @@
             transition: all 0.3s ease;
         }
     </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                includedLanguages: 'en,fr,de,ru', // Укажите необходимые языки через запятую
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
 
 <header class="delivery-header">
+    <div id="google_translate_element" style="text-align: right; margin: 10px;"></div>
     <h1>Автоблог</h1>
     <div class="mt-3">
         <a th:href="@{'/main_blog'}" class="btn btn-outline-primary me-2">Главная страница блога</a>
         <a th:href="@{'/admin_blog'}" class="btn btn-outline-primary" sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')">Административная панель управления блогом</a>
     </div>
 </header>
-
 </body>
 
 </html>

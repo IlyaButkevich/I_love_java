@@ -3,10 +3,8 @@ package com.example.demo20;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.Base64;
 
 
 @Entity
@@ -18,6 +16,9 @@ public class Blog {
     private String text;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+
+    @Lob
+    private byte[] image;
 
     protected Blog(){}
 
@@ -36,5 +37,15 @@ public class Blog {
     public Date getDate(){return date;}
     public  void setDate(Date date){this.date = date;}
 
+    public byte[] getImage(){return image;}
+    public  void setImage(byte[] image){this.image = image;}
 
+
+    @Transient
+    public String getImageBase64() {
+        if (image != null) {
+            return Base64.getEncoder().encodeToString(image);
+        }
+        return null;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo20;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.Comparator;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -186,13 +188,30 @@ public class AppController {
     }
 
     @RequestMapping(value="/saveblog", method = RequestMethod.POST)
-    public String saveBlog(@ModelAttribute("blog") Blog blog){
+    public String saveBlog(@ModelAttribute("blog") Blog blog, MultipartFile file) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         blog.setUser(auth.getName());
+        blog.setImage(file.getBytes());
         blog.setDate(new Date());
 
         blogService.save(blog);
         return "redirect:/admin_blog";
+    }
+
+    @RequestMapping(value = "/saveblog/{id}", method = RequestMethod.POST)
+    public String saveBlog2(@ModelAttribute("goods") Blog blog, MultipartFile file) throws IOException {
+        if (file.isEmpty()) {
+            Blog existing = blogService.get(blog.getId());
+            existing.setName(blog.getName());
+            existing.setText(blog.getText());
+            existing.setDate(blog.getDate());
+            existing.setUser(blog.getUser());
+        }
+        else {
+            blog.setImage(file.getBytes());
+            blogService.save(blog);
+        }
+        return "redirect:/";
     }
 
     @RequestMapping("/addblog")
@@ -229,6 +248,7 @@ public class AppController {
     @ResponseBody
     public ResponseEntity<Goods> callOpen1() {
         Goods goods = new Goods();
+        if (goods.getDateofshipment()==null){return ResponseEntity.ok(goods);}
         goodsService.save(goods);
         return ResponseEntity.ok(goods);
     }
@@ -255,5 +275,12 @@ public class AppController {
             myAppUserService.save(user); // Update the user in the database
         }
         return "redirect:/toadminpanel"; // Redirect back to the admin panel
+    }
+
+    @RequestMapping("/posts/{id}")
+    public String viewPost(@PathVariable Long id, Model model) {
+        Blog blog = blogService.getBlogById(id); // Получение поста по ID
+        model.addAttribute("post", blog); // Добавление поста в модель
+        return "description"; // Возврат шаблона "description.html"
     }
 }
